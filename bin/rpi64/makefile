@@ -58,7 +58,7 @@ sort.o: sort.c
 	$(CXX) $(CXXFLAGS) -O3 $< -o $@
 
 bbdata.o: ../../src/bbdata_arm_64.s
-	sed 's/_\([a-z]*\)/\1/g' <../../../BBCSDL/src/bbdata_arm_64.s >bbdata.s
+	sed 's/_\([a-z]*\)/\1/g' <../../src/bbdata_arm_64.s >bbdata.s
 	as bbdata.s -o bbdata.o
 
 libstb.so: SDL2_rotozoom.o
