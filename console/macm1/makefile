@@ -1,5 +1,5 @@
-VPATH = ../../src ../../include ../../../BBCSDL/src ../../../BBCSDL/include
-CXX = gcc -Wall -I ../../include -I ../../../BBCSDL/include
+VPATH = ../../src ../../include ../../src ../../include
+CXX = gcc -Wall -I ../../include -I ../../include
 
 OBJ = bbmain.o bbexec.o bbeval.o bbasmb.o bbdata.o bbccos.o bbccon.o
 
@@ -23,8 +23,8 @@ bbccos.o: bbccos.c bbccon.h
 bbccon.o: bbccon.c bbccon.h
 	$(CXX) -Wno-array-bounds -Wno-unused-result -c -Os $< -o $@
 
-bbdata.o: ../../../BBCSDL/src/bbdata_arm_64.s
-	as ../../../BBCSDL/src/bbdata_arm_64.s -o bbdata.o
+bbdata.o: ../../src/bbdata_arm_64.s
+	as ../../src/bbdata_arm_64.s -o bbdata.o
 
 bbcbasic: $(OBJ)
 	$(CXX) $(OBJ) -F/Library/Frameworks -L . \

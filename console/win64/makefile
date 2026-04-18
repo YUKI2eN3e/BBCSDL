@@ -1,6 +1,6 @@
 # Update these paths as necessary to match your installation
-VPATH = ../../src ../../include ../../../BBCSDL/src ../../../BBCSDL/include
-CXX = gcc -Wall -I ../../include -I ../../../BBCSDL/include
+VPATH = ../../src ../../include ../../src ../../include
+CXX = gcc -Wall -I ../../include -I ../../include
 
 OBJ = bbmain.o bbexec.o bbeval.o bbasmb.o bbdata.o bbccos.o bbccon.o
 
@@ -24,8 +24,8 @@ bbccos.o: bbccos.c bbccon.h
 bbccon.o: bbccon.c bbccon.h
 	$(CXX) -Wno-array-bounds -Wno-unused-value -c -Os $< -o $@
 
-bbdata.o: ../../../BBCSDL/src/bbdata_x86_64.nas
-	nasm -f win64 -s ../../../BBCSDL/src/bbdata_x86_64.nas -o bbdata.o
+bbdata.o: ../../src/bbdata_x86_64.nas
+	nasm -f win64 -s ../../src/bbdata_x86_64.nas -o bbdata.o
 
 bbcbasic.exe: $(OBJ)
 	$(CXX) $(OBJ) \
