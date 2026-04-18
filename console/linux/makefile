@@ -1,5 +1,7 @@
-VPATH = ../../src ../../include ../../../BBCSDL/src ../../../BBCSDL/include
-CXX = gcc -Wall -I ../../include -I ../../../BBCSDL/include
+LBITS := $(shell getconf LONG_BIT)
+
+VPATH = ../../src ../../include
+CXX = gcc -Wall -I ../../include
 
 OBJ = bbmain.o bbexec.o bbeval.o bbasmb.o bbdata.o bbccos.o bbccon.o
 
@@ -23,8 +25,13 @@ bbccos.o: bbccos.c bbccon.h
 bbccon.o: bbccon.c bbccon.h
 	$(CXX) -Wno-array-bounds -Wno-unused-result -c -Os $< -o $@
 
-bbdata.o: ../../../BBCSDL/src/bbdata_x86_64.nas
-	nasm -f elf64 -s ../../../BBCSDL/src/bbdata_x86_64.nas -o bbdata.o
+ifeq ($(LBITS),64)
+bbdata.o: ../../src/bbdata_x86_64.nas
+	nasm -f elf64 -s ../../src/bbdata_x86_64.nas -o bbdata.o
+else
+bbdata.o: ../../src/bbdata_x86_32.nas
+	nasm -f elf32 -s ../../src/bbdata_x86_32.nas -o bbdata.o
+endif
 
 bbcbasic: $(OBJ)
 	$(CXX) $(OBJ) -L . -L/usr/include -ldl -lm -lrt -pthread \
